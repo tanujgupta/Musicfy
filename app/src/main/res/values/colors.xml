@@ -10,5 +10,7 @@
     <color name="transparent_white">#66FFFFFF</color>
     <color name="transparent_lighter_white">#88FFFFFF</color>
     <color name="transparent_black">#73000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_10_percent">#1A000000</color>
 
 </resources>

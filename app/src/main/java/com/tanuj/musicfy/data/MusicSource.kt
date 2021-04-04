@@ -52,6 +52,6 @@ class MusicSource @Inject constructor() {
             .setIconUri(song.description.iconUri)
             .build()
         MediaBrowserCompat.MediaItem(desc, FLAG_PLAYABLE)
-    }
+    }.toMutableList()
 
 }
