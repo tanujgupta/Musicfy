@@ -2,6 +2,8 @@ package com.tanuj.musicfy.ui
 
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
+import android.widget.SeekBar
+import androidx.activity.viewModels
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +15,14 @@ import com.tanuj.musicfy.exoplayer.isPlaying
 import com.tanuj.musicfy.exoplayer.toSong
 import com.tanuj.musicfy.ui.adapters.SongAdapter
 import com.tanuj.musicfy.ui.viewmodels.MainViewModel
+import com.tanuj.musicfy.ui.viewmodels.SongViewModel
 import com.tanuj.musicfy.util.Status
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+import kotlin.time.Duration
 
 private const val NUM_PAGES = 3
 
@@ -28,9 +34,13 @@ class MainActivity : FragmentActivity() {
 
     lateinit var mainViewModel : MainViewModel
 
+    private val songViewModel: SongViewModel by viewModels()
+
     private var playbackState: PlaybackStateCompat? = null
 
     private var curPlayingSong: Song? = null
+
+    private var shouldUpdateSeekbar = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +73,41 @@ class MainActivity : FragmentActivity() {
             }
         }
 
+        seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if(fromUser) {
+                    setCurPlayerTimeToTextView(progress.toLong())
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                shouldUpdateSeekbar = false
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                seekBar?.let {
+                    mainViewModel.seekTo(it.progress.toLong())
+                    shouldUpdateSeekbar = true
+                }
+            }
+        })
+
+        iv_next.setOnClickListener {
+            mainViewModel.skipToNextSong()
+        }
+
+        iv_forward.setOnClickListener {
+            mainViewModel.forwardSong()
+        }
+
+        iv_previous.setOnClickListener {
+            mainViewModel.skipToPreviousSong()
+        }
+
+        iv_rewind.setOnClickListener {
+            mainViewModel.rewindSong()
+        }
+
     }
 
     private fun setUpRecyclerView()  = recycler_view.apply {
@@ -81,6 +126,8 @@ class MainActivity : FragmentActivity() {
             iv_play_pause.setImageResource(
                 if (playbackState?.isPlaying == true) R.drawable.ic_pause else R.drawable.ic_play
             )
+            seekbar.progress = it?.position?.toInt() ?: 0
+
         }
 
         mainViewModel.isConnected.observe(this) {
@@ -96,6 +143,29 @@ class MainActivity : FragmentActivity() {
             }
         }
 
+        songViewModel.curPlayerPosition.observe(this) {
+            if(shouldUpdateSeekbar) {
+                seekbar.progress = it.toInt()
+                setCurPlayerTimeToTextView(it)
+            }
+        }
+
+        songViewModel.curSongDuration.observe(this) {
+            seekbar.max = it.toInt()
+            var minutes : Int = ((it/1000)/60).toInt()
+            if (minutes < 0) minutes = 0
+            val seconds : Int = (it/1000).toInt() % 60
+            val secondsStr = if (seconds < 10) "0$seconds" else "$seconds"
+            tv_song_duration.text = "$minutes:$secondsStr"
+        }
+
+    }
+
+    private fun setCurPlayerTimeToTextView(ms: Long) {
+        val minutes : Int = ((ms/1000)/60).toInt()
+        val seconds : Int = (ms/1000).toInt() % 60
+        val secondsStr = if (seconds < 10) "0$seconds" else "$seconds"
+        tv_current_time.text = "$minutes:$secondsStr"
     }
 
     private inner class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
