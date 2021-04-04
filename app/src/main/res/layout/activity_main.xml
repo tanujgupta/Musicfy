@@ -15,42 +15,52 @@
     </androidx.viewpager.widget.ViewPager>
 
 
-<!--    <com.google.android.material.button.MaterialButtonToggleGroup-->
-<!--        android:id="@+id/toggleButtonGroup"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/drawable_oval"-->
-<!--        android:layout_marginTop="52dp"-->
-<!--        android:layout_gravity="center_horizontal">-->
+    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        android:id="@+id/button_group"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@color/transparent_white"
+        app:borderColor="@color/transparent_white"
+        app:borderWidth="0dp"
+        app:selectedBackground="@drawable/drawable_oval"
+        app:divider="@color/transparent"
+        app:dividerWidth="0dp"
+        app:position="0"
+        app:radius="30dp"
+        app:dividerRadius="0dp"
+        app:selectedButtonRadius="1dp"
+        app:draggable="true"
+        app:ripple="false">
 
-<!--        <Button-->
-<!--            android:id="@+id/btnAndroid"-->
-<!--            style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Details" />-->
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:selectedTextColor="@color/black"
+            app:text="Details"
+            app:textColor="@color/black" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btnFlutter"-->
-<!--            style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="Lyrics" />-->
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:selectedTextColor="@color/black"
+            app:text="Lyrics"
+            app:textColor="@color/black" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btnWeb"-->
-<!--            style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="Visulization" />-->
-
-<!--    </com.google.android.material.button.MaterialButtonToggleGroup>-->
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:selectedTextColor="@color/black"
+            app:text="Visualization"
+            app:textColor="@color/black" />
+    </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
 
     <SlidingDrawer
         android:id="@+id/drawer"
@@ -129,8 +139,6 @@
 
         </LinearLayout>
 
-
-
     </SlidingDrawer>
 
     <FrameLayout
@@ -147,6 +155,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:paddingLeft="10dp"
             android:layout_gravity="start|top"
             android:text="0:00"
             />
@@ -157,6 +166,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:paddingEnd="10dp"
             android:layout_gravity="end|top"
             android:text="3:00"
             />

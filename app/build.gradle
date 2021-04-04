@@ -44,7 +44,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
     // Toggle Button
-    implementation 'info.hoang8f:android-segmented:1.0.6'
+    implementation 'com.github.addisonelliott:SegmentedButton:3.1.9'
     // Material Design
     implementation 'com.google.android.material:material:1.4.0-alpha02'
 

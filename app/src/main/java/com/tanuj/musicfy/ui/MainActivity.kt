@@ -1,5 +1,7 @@
 package com.tanuj.musicfy.ui
 
+import androidx.viewpager.widget.ViewPager
+
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
 import android.widget.SeekBar
@@ -19,10 +21,8 @@ import com.tanuj.musicfy.ui.viewmodels.SongViewModel
 import com.tanuj.musicfy.util.Status
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.time.Duration
 
 private const val NUM_PAGES = 3
 
@@ -65,6 +65,24 @@ class MainActivity : FragmentActivity() {
 
         cancel_sliding_drawer.setOnClickListener {
             drawer.animateClose()
+        }
+
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) = Unit
+
+            override fun onPageSelected(position: Int) {
+                button_group.setPosition(position, true)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) = Unit
+        })
+
+        button_group.setOnPositionChangedListener {
+            view_pager.setCurrentItem(it)
         }
 
         iv_play_pause.setOnClickListener {
