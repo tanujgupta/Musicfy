@@ -43,6 +43,10 @@ class MainActivity : FragmentActivity() {
 
         songAdapter.songs = SongDatabase.getAllSongs()
 
+        cancel_sliding_drawer.setOnClickListener {
+            drawer.animateClose()
+        }
+
     }
 
     private fun setUpRecyclerView()  = recycler_view.apply {

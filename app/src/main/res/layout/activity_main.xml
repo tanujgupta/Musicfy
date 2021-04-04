@@ -57,7 +57,7 @@
         android:layout_height="match_parent"
         android:content="@+id/content"
         android:handle="@+id/handle"
-        android:topOffset="-25dp">
+        android:topOffset="-42dp">
 
         <LinearLayout
             android:id="@id/handle"
