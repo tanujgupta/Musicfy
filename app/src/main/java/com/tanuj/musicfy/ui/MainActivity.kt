@@ -1,10 +1,7 @@
 package com.tanuj.musicfy.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tanuj.musicfy.R
@@ -59,10 +56,10 @@ class MainActivity : FragmentActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 ->  FirstFragment()
+                0 ->  MusicFragment()
                 1 ->  SecondFragment()
                 2 ->  ThirdFragment()
-                else ->  FirstFragment()
+                else ->  MusicFragment()
             }
         }
     }

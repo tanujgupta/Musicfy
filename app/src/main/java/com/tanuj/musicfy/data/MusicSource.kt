@@ -27,7 +27,7 @@ class MusicSource @Inject constructor() {
                 .putString(METADATA_KEY_DISPLAY_ICON_URI, song.imageUrl)
                 .putString(METADATA_KEY_MEDIA_URI, song.songUrl)
                 .putString(METADATA_KEY_ALBUM_ART_URI, song.imageUrl)
-                .putString(METADATA_KEY_DISPLAY_SUBTITLE, song.title)
+                .putString(METADATA_KEY_DISPLAY_SUBTITLE, song.artist)
                 .putString(METADATA_KEY_DISPLAY_DESCRIPTION, song.title)
                 .build()
         }
