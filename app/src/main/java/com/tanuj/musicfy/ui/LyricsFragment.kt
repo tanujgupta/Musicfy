@@ -1,7 +1,6 @@
 package com.tanuj.musicfy.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +13,9 @@ import com.tanuj.musicfy.data.SongDatabase
 import com.tanuj.musicfy.exoplayer.toSong
 import com.tanuj.musicfy.ui.adapters.LyricsAdapter
 import com.tanuj.musicfy.ui.viewmodels.MainViewModel
+import com.tanuj.musicfy.ui.viewmodels.SongViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_lyrics.*
 import javax.inject.Inject
 
@@ -22,6 +23,8 @@ import javax.inject.Inject
 class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
     lateinit var mainViewModel : MainViewModel
+
+    lateinit var sonViewModel : SongViewModel
 
     @Inject
     lateinit var lyricsAdapter: LyricsAdapter
@@ -35,6 +38,8 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
         setFragmentViews()
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+
+        sonViewModel = ViewModelProvider(requireActivity()).get(SongViewModel::class.java)
 
         lyricsList = LyricsSource.getAllLyrics(requireContext())
 
@@ -55,6 +60,12 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
             setFragmentViews()
         }
+
+        sonViewModel.curPlayerPosition.observe(viewLifecycleOwner) {
+            lyricsAdapter.setCurrentLyricPosition((it/1000).toInt())
+
+            recyler_view_lyrics?.smoothScrollToPosition(lyricsAdapter.curLyricPosition)
+        }
     }
 
     private fun setFragmentViews() {
@@ -65,9 +76,9 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
         if (::lyricsList.isInitialized) {
             when(curPlayingSong!!.mediaId) {
-                "1" -> lyricsAdapter.submitList(lyricsList.get(0).lyricItems)
-                "2" -> lyricsAdapter.submitList(lyricsList.get(1).lyricItems)
-                "3" -> lyricsAdapter.submitList(lyricsList.get(2).lyricItems)
+                "1" -> lyricsAdapter.submitList(lyricsList.get(0).lyricItems, context)
+                "2" -> lyricsAdapter.submitList(lyricsList.get(1).lyricItems, context)
+                "3" -> lyricsAdapter.submitList(lyricsList.get(2).lyricItems, context)
             }
         }
     }

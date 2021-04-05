@@ -22,8 +22,8 @@ class LyricsSource {
             val lyric : MutableList<Lyric> = mutableListOf()
 
             for (line in fileLines) {
-                val timeMinutesStr = line.substring(2, 3)
-                val timeSecondsStr = line.substring(4,5)
+                val timeMinutesStr = line.substring(1, 3)
+                val timeSecondsStr = line.substring(4,6)
 
                 try {
                     val timeInMillis : Long = ((timeMinutesStr.toInt() * 60 + timeSecondsStr.toInt()) * 1000).toLong()
