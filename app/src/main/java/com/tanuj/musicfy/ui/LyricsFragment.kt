@@ -22,9 +22,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
-    lateinit var mainViewModel : MainViewModel
+    private lateinit var mainViewModel : MainViewModel
 
-    lateinit var sonViewModel : SongViewModel
+    private lateinit var sonViewModel : SongViewModel
 
     @Inject
     lateinit var lyricsAdapter: LyricsAdapter
