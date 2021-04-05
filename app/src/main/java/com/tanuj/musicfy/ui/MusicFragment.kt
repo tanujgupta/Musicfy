@@ -12,7 +12,7 @@ import com.tanuj.musicfy.data.Song
 import com.tanuj.musicfy.data.SongDatabase
 import com.tanuj.musicfy.exoplayer.toSong
 import com.tanuj.musicfy.ui.viewmodels.MainViewModel
-import kotlinx.android.synthetic.main.fragment_first.*
+import kotlinx.android.synthetic.main.fragment_music.*
 import java.lang.NumberFormatException
 
 /**
@@ -26,7 +26,7 @@ class MusicFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.fragment_music, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

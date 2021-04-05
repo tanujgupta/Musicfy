@@ -192,8 +192,8 @@ class MainActivity : FragmentActivity() {
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 ->  MusicFragment()
-                1 ->  SecondFragment()
-                2 ->  ThirdFragment()
+                1 ->  LyricsFragment()
+                2 ->  VisualizationFragment()
                 else ->  MusicFragment()
             }
         }
